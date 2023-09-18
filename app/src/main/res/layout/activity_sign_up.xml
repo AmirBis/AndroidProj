@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ttUserName" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/registerbt"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginEnd="16dp"
@@ -67,4 +67,12 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createPass" />
+
+    <TextView
+        android:id="@+id/errorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="error"
+        tools:layout_editor_absoluteX="29dp"
+        tools:layout_editor_absoluteY="369dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
