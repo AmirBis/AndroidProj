@@ -11,6 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private DrawerLayout drawerLayout;
     TextView username,email;
+    FirebaseAuth fauth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +33,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Toolbar toolbar = findViewById(R.id.toolbar); //Ignore red line errors
         setSupportActionBar(toolbar);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        fauth = FirebaseAuth.getInstance();
+        drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        FirebaseUser user = fauth.getCurrentUser();
         if(user != null){
-            username = findViewById(R.id.ttUserName);
+            View header = navigationView.getHeaderView(0);
+            username = header.findViewById(R.id.ttUserName);
             email = findViewById(R.id.etemail);
             username.setText(user.getDisplayName());
             email.setText(user.getEmail());
@@ -42,11 +50,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent i = new Intent(MainActivity.this,logInActivity.class);
             startActivity(i);
         }
-
-        drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav,
                 R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
