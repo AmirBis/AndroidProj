@@ -5,13 +5,15 @@ public class QueryString {
 
     //region Create Tables
     public static final String SQL_CREATE_PRODUCT =
-            "CREATE TABLE " + ProductTable.TABLE_PRODUCT + " (" +
+            "CREATE TABLE " + ProductTable.TABLE_PRODUCTNAME + " (" +
                     ProductTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    ProductTable.COLUMN_PRODUCT_NAME + " TEXT," +
-                    ProductTable.COLUMN_PRODUCT_DESCRIPTION + " TEXT," +
-                    ProductTable.COLUMN_PRODUCT_STOCK + " INTEGER," +
-                    ProductTable.COLUMN_PRODUCT_SALEPRICE + " DOUBLE,"+
-                    ProductTable.COLUMN_PRODUCT_BUYPRICE + " DOUBLE,"+
+                    ProductTable.TABLE_PRODUCTNAME + " TEXT," +
+                    ProductTable.COLOR + " TEXT," +
+                    ProductTable.COLUMN_PRODUCT_PRICE + " INTEGER," +
+                    ProductTable.COLUMN_PRODUCT_TYPE + " TEXT,"+
+                    ProductTable.MAXSPEED + " INTEGER,"+
+                    ProductTable.HORSEPOWER + " INTEGER,"+
+                    ProductTable.SECTO100 + " INTEGER,"+
                     ProductTable.COLUMN_PRODUCT_IMAGE + " BLOB);";
 
     public static final String SQL_CREATE_CART =
@@ -31,7 +33,7 @@ public class QueryString {
     //region Delete Tables
 
     public static final String SQL_DELETE_PRODUCT =
-            "DROP TABLE IF EXISTS " + ProductTable.TABLE_PRODUCT;
+            "DROP TABLE IF EXISTS " + ProductTable.TABLE_PRODUCTNAME;
 
     public static final String SQL_DELETE_CART =
             "DROP TABLE IF EXISTS " + CartTable.TABLE_CART;
