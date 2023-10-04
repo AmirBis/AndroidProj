@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "699086617615",
+    "project_id": "amirproj-a8a77",
+    "storage_bucket": "amirproj-a8a77.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699086617615:android:bd67b78da2c550dc90777a",
+        "android_client_info": {
+          "package_name": "com.example.amirproj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "699086617615-ke3gu61g5ahk6hhca1n3tm4237bgs8h6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBq1gPKNXMZp4Sq8wmGV1HFGInjMnwBFSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "699086617615-ke3gu61g5ahk6hhca1n3tm4237bgs8h6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
