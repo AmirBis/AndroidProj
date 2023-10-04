@@ -14,20 +14,25 @@ public class Product implements SqlInterface{
     //region Attribute
     protected int pid;
     protected String prodname;
-    protected String proddisc;
-    protected int stock;
-    protected double saleprice;
-    protected double buyprice;
+    protected String prodtype;
+    protected int HORSEPOWER;
+    protected int SECTO100;
+    protected int MAXSPEED;
     protected byte[] imageByte;
+    protected double saleprice;
+    protected double price;
+
     //endregion
 
     //region Constructors
-    public Product(String prodname,String proddisc,int stock,double saleprice,double buyprice,byte[] image){
+    public Product(String prodname,String prodtype,int HORSEPOWER,double price,double buyprice,byte[] image,int SECTO100,int MAXSPEED){
         this.saleprice=saleprice;
-        this.buyprice=buyprice;
+        this.price=price;
         this.prodname=prodname;
-        this.proddisc=proddisc;
-        this.stock=stock;
+        this.prodtype=prodtype;
+        this.HORSEPOWER=HORSEPOWER;
+        this.SECTO100=SECTO100;
+        this.MAXSPEED=MAXSPEED;
         this.imageByte = image;
     }
     //endregion
@@ -37,16 +42,18 @@ public class Product implements SqlInterface{
     public long Add(SQLiteDatabase db) {
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
-        values.put(COLUMN_PRODUCT_NAME, prodname);
-        values.put(COLUMN_PRODUCT_DESCRIPTION, proddisc);
-        values.put(COLUMN_PRODUCT_BUYPRICE, buyprice);
-        values.put(COLUMN_PRODUCT_SALEPRICE, saleprice);
-        values.put(COLUMN_PRODUCT_STOCK, stock);
+        values.put(TABLE_PRODUCTNAME, prodname);
+        values.put(COLUMN_PRODUCT_TYPE, prodtype);
+        values.put(COLUMN_PRODUCT_PRICE, price);
+        values.put(SECTO100, SECTO100);
+        values.put(COLOR, COLOR);
+        values.put(MAXSPEED, MAXSPEED);
+        values.put(HORSEPOWER, HORSEPOWER);
         values.put(COLUMN_PRODUCT_IMAGE, imageByte);
 
 
 // Insert the new row, returning the primary key value of the new row
-        return db.insert(TABLE_PRODUCT, null, values);
+        return db.insert(TABLE_PRODUCTNAME, null, values);
 
     }
 
@@ -56,7 +63,7 @@ public class Product implements SqlInterface{
 // Specify arguments in placeholder order.
         String[] selectionArgs = {id+""};
 // Issue SQL statement.
-        return db.delete(TABLE_PRODUCT, selection, selectionArgs);
+        return db.delete(TABLE_PRODUCTNAME, selection, selectionArgs);
 
     }
 
@@ -64,11 +71,12 @@ public class Product implements SqlInterface{
     public int Update(SQLiteDatabase db, int id) {
         // New value for one column
         ContentValues values = new ContentValues();
-        values.put(COLUMN_PRODUCT_NAME, prodname);
-        values.put(COLUMN_PRODUCT_DESCRIPTION, proddisc);
-        values.put(COLUMN_PRODUCT_BUYPRICE, buyprice);
-        values.put(COLUMN_PRODUCT_SALEPRICE, saleprice);
-        values.put(COLUMN_PRODUCT_STOCK, stock);
+        values.put(TABLE_PRODUCTNAME, prodname);
+        values.put(COLUMN_PRODUCT_TYPE, prodtype);
+        values.put(COLOR, COLOR);
+        values.put(MAXSPEED, MAXSPEED);
+        values.put(HORSEPOWER, HORSEPOWER);
+        values.put(SECTO100,SECTO100);
         values.put(COLUMN_PRODUCT_IMAGE, imageByte.toString());
 
 // Which row to update, based on the title
@@ -76,7 +84,7 @@ public class Product implements SqlInterface{
         String[] selectionArgs = { id+"" };
 
         return  db.update(
-                TABLE_PRODUCT,
+                TABLE_PRODUCTNAME,
                 values,
                 selection,
                 selectionArgs);
@@ -87,17 +95,19 @@ public class Product implements SqlInterface{
     public Cursor Select(SQLiteDatabase db) {
         String[] projection = {
                 BaseColumns._ID,
-                COLUMN_PRODUCT_NAME,
-                COLUMN_PRODUCT_DESCRIPTION,
+                TABLE_PRODUCTNAME,
+                COLUMN_PRODUCT_TYPE,
                 COLUMN_PRODUCT_IMAGE,
-                COLUMN_PRODUCT_STOCK,
-                COLUMN_PRODUCT_SALEPRICE,
-                COLUMN_PRODUCT_BUYPRICE
+                HORSEPOWER,
+                SECTO100,
+                MAXSPEED,
+                COLOR,
+                COLUMN_PRODUCT_PRICE
         };
 // How you want the results sorted in the resulting Cursor
         String sortOrder =
                 BaseColumns._ID + " DESC";
-        Cursor c = db.query(TABLE_PRODUCT,
+        Cursor c = db.query(TABLE_PRODUCTNAME,
                 projection,
                 null,
                 null,
@@ -107,9 +117,6 @@ public class Product implements SqlInterface{
         return c;
     }
 
-    //endregion
-
-    //region Setter and Getter
     public int getPid() {
         return pid;
     }
@@ -126,37 +133,57 @@ public class Product implements SqlInterface{
         this.prodname = prodname;
     }
 
-    public String getProddisc() {
-        return proddisc;
+    public String getProdtype() {
+        return prodtype;
     }
 
-    public void setProddisc(String proddisc) {
-        this.proddisc = proddisc;
+    public void setProdtype(String prodtype) {
+        this.prodtype = prodtype;
     }
 
-    public int getStock() {
-        return stock;
+    public int getHORSEPOWER() {
+        return HORSEPOWER;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setHORSEPOWER(int HORSEPOWER) {
+        this.HORSEPOWER = HORSEPOWER;
     }
 
-    public double getSaleprice() {
-        return saleprice;
+    public int getSECTO100() {
+        return SECTO100;
     }
 
-    public void setSaleprice(double saleprice) {
-        this.saleprice = saleprice;
+    public void setSECTO100(int SECTO100) {
+        this.SECTO100 = SECTO100;
     }
 
-    public double getBuyprice() {
-        return buyprice;
+    public int getMAXSPEED() {
+        return MAXSPEED;
     }
 
-    public void setBuyprice(double buyprice) {
-        this.buyprice = buyprice;
+    public void setMAXSPEED(int MAXSPEED) {
+        this.MAXSPEED = MAXSPEED;
     }
+
+    public byte[] getImageByte() {
+        return imageByte;
+    }
+
+    public void setImageByte(byte[] imageByte) {
+        this.imageByte = imageByte;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     //endregion
+
+    //region Setter and Getter
+
 
 }
