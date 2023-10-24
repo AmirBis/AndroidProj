@@ -22,7 +22,7 @@ import java.io.IOException;
 public class AddProductActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static int RESULT_LOAD_IMAGE = 1;
-    EditText etname,etdisc,etstock,etsaleprice;
+    EditText etname,etColor,horsepower,etPrice, secto100, maxspeed;
     ImageButton imageButton;
     Button btadd;
     Product p;
@@ -33,15 +33,17 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
-        etname = findViewById(R.id.etProdName);
-        etdisc = findViewById(R.id.etDesc);
-        etstock = findViewById(R.id.etStock);
-        etsaleprice = findViewById(R.id.etSalePrice);
+        etname = findViewById(R.id.etProdType);
+        etColor = findViewById(R.id.etColor);
+        maxspeed = findViewById(R.id.maxspeed);
+        horsepower = findViewById(R.id.horsepower);
+        secto100 = findViewById(R.id.secto100);
+        etPrice = findViewById(R.id.etPrice);
         imageButton = findViewById(R.id.imageButton);
         btadd = findViewById(R.id.addButton);
         btadd.setOnClickListener(this);
         imageButton.setOnClickListener(this);
-        addItemProgressBar=findViewById(R.id.addItemProgressBar);
+        addItemProgressBar=findViewById(R.id.addButton);
         dbHelper = new DBHelper(this);
         dbHelper.OpenWriteAble();
 
@@ -53,10 +55,12 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
             dbHelper = new DBHelper(this);
 
             byte[] data  = imageViewToByte();
-            p=new Product(etname.getText().toString(),etdisc.getText().toString(),
-                    Integer.parseInt(etstock.getText().toString()),
-                    Double.parseDouble(etsaleprice.getText().toString()),
-                    Double.parseDouble(etbuyprice.getText().toString()),data);
+            p=new Product(etname.getText().toString(),etColor.getText().toString(),
+                    Integer.parseInt(horsepower.getText().toString()),
+                    Double.parseDouble(etPrice.getText().toString()),
+                    Integer.parseInt(secto100.getText().toString()),
+                    Integer.parseInt(maxspeed.getText().toString()),
+
             dbHelper.OpenWriteAble();
             if(p.Add(dbHelper.getDb())>-1){
                 Toast.makeText(this, "Added Successfully", Toast.LENGTH_SHORT).show();

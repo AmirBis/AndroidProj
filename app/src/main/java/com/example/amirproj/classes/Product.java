@@ -180,11 +180,11 @@ public class Product implements SqlInterface{
 
 
     public double getSaleprice() {
-        return saleprice;
+        return price;
     }
 
     public void setSaleprice(double saleprice) {
-        this.saleprice = saleprice;
+        this.price = saleprice;
     }
     //endregion
 
