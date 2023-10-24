@@ -1,6 +1,7 @@
 package com.example.amirproj.classes;
 
 import static com.example.amirproj.dataTables.TablesString.ProductTable.*;
+import static com.example.amirproj.dataTables.TablesString.ProductTable.COLUMN_PRODUCT_COLOR;
 
 
 import android.content.ContentValues;
@@ -13,26 +14,25 @@ public class Product implements SqlInterface{
 
     //region Attribute
     protected int pid;
-    protected String prodname;
     protected String prodtype;
-    protected int HORSEPOWER;
-    protected int SECTO100;
-    protected int MAXSPEED;
+
+    protected String color;
+    protected int horsepower;
+    protected int secto100;
+    protected int maxspeed;
     protected byte[] imageByte;
-    protected double saleprice;
     protected double price;
 
     //endregion
 
     //region Constructors
-    public Product(String prodname,String prodtype,int HORSEPOWER,double price,double buyprice,byte[] image,int SECTO100,int MAXSPEED){
-        this.saleprice=saleprice;
+    public Product(String prodtype,String color,int horsepower,double price,byte[] image,int secto100,int maxspeed){
         this.price=price;
-        this.prodname=prodname;
         this.prodtype=prodtype;
-        this.HORSEPOWER=HORSEPOWER;
-        this.SECTO100=SECTO100;
-        this.MAXSPEED=MAXSPEED;
+        this.color = color;
+        this.horsepower=horsepower;
+        this.secto100=secto100;
+        this.maxspeed=maxspeed;
         this.imageByte = image;
     }
     //endregion
@@ -42,13 +42,12 @@ public class Product implements SqlInterface{
     public long Add(SQLiteDatabase db) {
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
-        values.put(TABLE_PRODUCTNAME, prodname);
         values.put(COLUMN_PRODUCT_TYPE, prodtype);
         values.put(COLUMN_PRODUCT_PRICE, price);
-        values.put(SECTO100, SECTO100);
-        values.put(COLOR, COLOR);
-        values.put(MAXSPEED, MAXSPEED);
-        values.put(HORSEPOWER, HORSEPOWER);
+        values.put(COLUMN_PRODUCT_SECTO100, secto100);
+        values.put(COLUMN_PRODUCT_COLOR, color);
+        values.put(COLUMN_PRODUCT_MAXSPEED, maxspeed);
+        values.put(COLUMN_PRODUCT_HORSEPOWER, horsepower);
         values.put(COLUMN_PRODUCT_IMAGE, imageByte);
 
 
@@ -71,13 +70,13 @@ public class Product implements SqlInterface{
     public int Update(SQLiteDatabase db, int id) {
         // New value for one column
         ContentValues values = new ContentValues();
-        values.put(TABLE_PRODUCTNAME, prodname);
         values.put(COLUMN_PRODUCT_TYPE, prodtype);
-        values.put(COLOR, COLOR);
-        values.put(MAXSPEED, MAXSPEED);
-        values.put(HORSEPOWER, HORSEPOWER);
-        values.put(SECTO100,SECTO100);
-        values.put(COLUMN_PRODUCT_IMAGE, imageByte.toString());
+        values.put(COLUMN_PRODUCT_PRICE, price);
+        values.put(COLUMN_PRODUCT_SECTO100, secto100);
+        values.put(COLUMN_PRODUCT_COLOR, color);
+        values.put(COLUMN_PRODUCT_MAXSPEED, maxspeed);
+        values.put(COLUMN_PRODUCT_HORSEPOWER, horsepower);
+        values.put(COLUMN_PRODUCT_IMAGE, imageByte);
 
 // Which row to update, based on the title
         String selection = BaseColumns._ID + " LIKE ?";
@@ -98,10 +97,10 @@ public class Product implements SqlInterface{
                 TABLE_PRODUCTNAME,
                 COLUMN_PRODUCT_TYPE,
                 COLUMN_PRODUCT_IMAGE,
-                HORSEPOWER,
-                SECTO100,
-                MAXSPEED,
-                COLOR,
+                COLUMN_PRODUCT_HORSEPOWER,
+                COLUMN_PRODUCT_SECTO100,
+                COLUMN_PRODUCT_MAXSPEED,
+                COLUMN_PRODUCT_COLOR,
                 COLUMN_PRODUCT_PRICE
         };
 // How you want the results sorted in the resulting Cursor
@@ -124,45 +123,12 @@ public class Product implements SqlInterface{
     public void setPid(int pid) {
         this.pid = pid;
     }
-
-    public String getProdname() {
-        return prodname;
-    }
-
-    public void setProdname(String prodname) {
-        this.prodname = prodname;
-    }
-
     public String getProdtype() {
         return prodtype;
     }
 
     public void setProdtype(String prodtype) {
         this.prodtype = prodtype;
-    }
-
-    public int getHORSEPOWER() {
-        return HORSEPOWER;
-    }
-
-    public void setHORSEPOWER(int HORSEPOWER) {
-        this.HORSEPOWER = HORSEPOWER;
-    }
-
-    public int getSECTO100() {
-        return SECTO100;
-    }
-
-    public void setSECTO100(int SECTO100) {
-        this.SECTO100 = SECTO100;
-    }
-
-    public int getMAXSPEED() {
-        return MAXSPEED;
-    }
-
-    public void setMAXSPEED(int MAXSPEED) {
-        this.MAXSPEED = MAXSPEED;
     }
 
     public byte[] getImageByte() {
@@ -180,7 +146,46 @@ public class Product implements SqlInterface{
     public void setPrice(double price) {
         this.price = price;
     }
+    public String getColor() {
+        return color;
+    }
 
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public int getHorsepower() {
+        return horsepower;
+    }
+
+    public void setHorsepower(int horsepower) {
+        this.horsepower = horsepower;
+    }
+
+    public int getSecto100() {
+        return secto100;
+    }
+
+    public void setSecto100(int secto100) {
+        this.secto100 = secto100;
+    }
+
+    public int getMaxspeed() {
+        return maxspeed;
+    }
+
+    public void setMaxspeed(int maxspeed) {
+        this.maxspeed = maxspeed;
+    }
+
+
+    public double getSaleprice() {
+        return saleprice;
+    }
+
+    public void setSaleprice(double saleprice) {
+        this.saleprice = saleprice;
+    }
     //endregion
 
     //region Setter and Getter

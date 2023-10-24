@@ -22,7 +22,7 @@ import java.io.IOException;
 public class AddProductActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static int RESULT_LOAD_IMAGE = 1;
-    EditText etname,etdisc,etstock,etsaleprice,etbuyprice;
+    EditText etname,etdisc,etstock,etsaleprice;
     ImageButton imageButton;
     Button btadd;
     Product p;
@@ -37,7 +37,6 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         etdisc = findViewById(R.id.etDesc);
         etstock = findViewById(R.id.etStock);
         etsaleprice = findViewById(R.id.etSalePrice);
-        etbuyprice = findViewById(R.id.etBuyPrice);
         imageButton = findViewById(R.id.imageButton);
         btadd = findViewById(R.id.addButton);
         btadd.setOnClickListener(this);

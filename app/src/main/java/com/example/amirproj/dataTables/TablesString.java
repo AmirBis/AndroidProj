@@ -12,11 +12,10 @@ public class TablesString {
         public static final String COLUMN_PRODUCT_TYPE = "ProductType";
         public static final String COLUMN_PRODUCT_IMAGE = "ProductImage";
         public static final String COLUMN_PRODUCT_PRICE = "Price";
-
-        public static final String COLOR = "COLOR";
-        public static final String MAXSPEED = "MaxSpeed";
-        public static final String SECTO100 = "SecTo100";
-        public static final String HORSEPOWER = "horsePower";
+        public static final String COLUMN_PRODUCT_COLOR = "COLOR";
+        public static final String COLUMN_PRODUCT_MAXSPEED = "MaxSpeed";
+        public static final String COLUMN_PRODUCT_SECTO100 = "SecTo100";
+        public static final String COLUMN_PRODUCT_HORSEPOWER = "horsePower";
 
 
 

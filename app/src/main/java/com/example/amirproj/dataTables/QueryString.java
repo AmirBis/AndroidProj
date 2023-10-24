@@ -7,13 +7,12 @@ public class QueryString {
     public static final String SQL_CREATE_PRODUCT =
             "CREATE TABLE " + ProductTable.TABLE_PRODUCTNAME + " (" +
                     ProductTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    ProductTable.TABLE_PRODUCTNAME + " TEXT," +
-                    ProductTable.COLOR + " TEXT," +
+                    ProductTable.COLUMN_PRODUCT_TYPE + " TEXT," +
+                    ProductTable.COLUMN_PRODUCT_COLOR + " TEXT," +
                     ProductTable.COLUMN_PRODUCT_PRICE + " INTEGER," +
-                    ProductTable.COLUMN_PRODUCT_TYPE + " TEXT,"+
-                    ProductTable.MAXSPEED + " INTEGER,"+
-                    ProductTable.HORSEPOWER + " INTEGER,"+
-                    ProductTable.SECTO100 + " INTEGER,"+
+                    ProductTable.COLUMN_PRODUCT_MAXSPEED + " INTEGER,"+
+                    ProductTable.COLUMN_PRODUCT_HORSEPOWER + " INTEGER,"+
+                    ProductTable.COLUMN_PRODUCT_SECTO100 + " INTEGER,"+
                     ProductTable.COLUMN_PRODUCT_IMAGE + " BLOB);";
 
     public static final String SQL_CREATE_CART =
