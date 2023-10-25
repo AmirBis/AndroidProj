@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.example.amirproj.classes.Product;
 import com.example.amirproj.dataTables.DBHelper;
@@ -24,11 +22,10 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     private static int RESULT_LOAD_IMAGE = 1;
     EditText etname,etColor,horsepower,etPrice, secto100, maxspeed;
     ImageButton imageButton;
-    Button btadd;
+    Button btadd,update,delete;
     Product p;
     Uri selectedImageUri;
     DBHelper dbHelper;
-    ProgressBar addItemProgressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,18 +37,20 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         secto100 = findViewById(R.id.secto100);
         etPrice = findViewById(R.id.etPrice);
         imageButton = findViewById(R.id.imageButton);
-        btadd = findViewById(R.id.addButton);
+        btadd = findViewById(R.id.btAdd);
         btadd.setOnClickListener(this);
+        update= findViewById(R.id.btUpdate);
+        update.setOnClickListener(this);
+        delete = findViewById(R.id.btDelete);
+        delete.setOnClickListener(this);
         imageButton.setOnClickListener(this);
-        addItemProgressBar=findViewById(R.id.addButton);
         dbHelper = new DBHelper(this);
         dbHelper.OpenWriteAble();
 
     }
     @Override
     public void onClick(View view) {
-        if(view.getId()==R.id.addButton){
-            addItemProgressBar.setVisibility(View.VISIBLE);
+        if(view.getId()==R.id.btAdd){
             dbHelper = new DBHelper(this);
 
             byte[] data  = imageViewToByte();
@@ -59,7 +58,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                     Integer.parseInt(horsepower.getText().toString()),
                     Double.parseDouble(etPrice.getText().toString()),
                     Integer.parseInt(secto100.getText().toString()),
-                    Integer.parseInt(maxspeed.getText().toString()),
+                    Integer.parseInt(maxspeed.getText().toString()));
 
             dbHelper.OpenWriteAble();
             if(p.Add(dbHelper.getDb())>-1){

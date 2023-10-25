@@ -7,7 +7,6 @@ import static com.example.amirproj.dataTables.TablesString.ProductTable.COLUMN_P
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
 import android.provider.BaseColumns;
 
 public class Product implements SqlInterface{
@@ -26,7 +25,7 @@ public class Product implements SqlInterface{
     //endregion
 
     //region Constructors
-    public Product(String prodtype,String color,int horsepower,double price,byte[] image,int secto100,int maxspeed){
+    public Product(String prodtype, String color, int horsepower, double price, int secto100, int maxspeed){
         this.price=price;
         this.prodtype=prodtype;
         this.color = color;
