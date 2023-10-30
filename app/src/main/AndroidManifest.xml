@@ -16,13 +16,13 @@
             android:name=".admin.AddProductActivity"
             android:exported="false" />
         <activity
-            android:name=".user.signUpActivity"
+            android:name=".signUpActivity"
             android:exported="false" />
         <activity
-            android:name=".user.logInActivity"
+            android:name=".logInActivity"
             android:exported="false" />
         <activity
-            android:name=".user.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

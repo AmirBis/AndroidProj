@@ -1,43 +1,57 @@
-package com.example.amirproj.user;
+package com.example.amirproj;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.amirproj.R;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-public class signUpActivity extends AppCompatActivity {
-    EditText emailEditText;
-    EditText fullNameEditText;
-    Button registerButton;
-    EditText passwordEditText;
-    EditText repasswordEditText;
-    EditText errorText;
+import java.util.concurrent.TimeUnit;
 
-    @SuppressLint("WrongViewCast")
+public class signUpActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
+    EditText fullNameEditText,emailEditText,passwordEditText,repasswordEditText;
+    //change
+    EditText admincode;
+    Button registerButton;
+    //change
+    Switch isadmin;
+    TextView errorText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        fullNameEditText = findViewById(R.id.ttUserName);
-        emailEditText=findViewById(R.id.NewEmail);
-        passwordEditText=findViewById(R.id.createPass);
-        repasswordEditText=findViewById(R.id.confirmPass);
-        registerButton=findViewById(R.id.registerbt);
+        fullNameEditText=findViewById(R.id.fullNameEditText);
+        emailEditText=findViewById(R.id.emailEditText);
+        passwordEditText=findViewById(R.id.passwordEditText);
+        repasswordEditText=findViewById(R.id.repasswordEditText);
+        registerButton=findViewById(R.id.registerButton);
         errorText=findViewById(R.id.errorText);
+        isadmin = findViewById(R.id.SwAdmin);
+        isadmin.setOnCheckedChangeListener(this);
+        admincode = findViewById(R.id.etAdminCode);
+        admincode.setVisibility(View.GONE);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,17 +86,28 @@ public class signUpActivity extends AppCompatActivity {
             errorText.setText("password dosn't match");
             return;
         }
+
+        //change
+        if(isadmin.isChecked() && !admincode.getText().toString().equals("13579")){
+            errorText.setVisibility(View.VISIBLE);
+            errorText.setText("admin code is incorrect");
+            return;
+        }
         final FirebaseAuth mAuth=FirebaseAuth.getInstance();
         mAuth.createUserWithEmailAndPassword(emailEditText.getText().toString(), passwordEditText.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
                             FirebaseUser user = mAuth.getCurrentUser();
-
-                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(fullNameEditText.getText().toString())
+                            //change
+                            String name=fullNameEditText.getText().toString();
+                            if(isadmin.isChecked()){
+                                name = "admin: "+name;
+                            }
+                            //change
+                            UserProfileChangeRequest  profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(name)
                                     .build();
 
                             user.updateProfile(profileUpdates)
@@ -90,7 +115,7 @@ public class signUpActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
-                                                startActivity(new Intent(signUpActivity.this, MainActivity.class));
+                                                startActivity(new Intent(signUpActivity.this,MainActivity.class));
                                             }
                                         }
                                     });
@@ -103,5 +128,17 @@ public class signUpActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+    }
+
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        if(isadmin.isChecked()){
+            admincode.setVisibility(View.VISIBLE);
+        }else{
+            admincode.setVisibility(View.GONE);
+
+        }
     }
 }

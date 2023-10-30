@@ -1,4 +1,4 @@
-package com.example.amirproj.user;
+package com.example.amirproj;
 
 
 import androidx.annotation.NonNull;
@@ -15,11 +15,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.amirproj.R;
-import com.example.amirproj.gallery;
-import com.example.amirproj.home;
-import com.example.amirproj.info;
-import com.example.amirproj.profile;
+import com.example.amirproj.admin.AddProductActivity;
+import com.example.amirproj.user.gallery;
+import com.example.amirproj.user.home;
+import com.example.amirproj.user.info;
+import com.example.amirproj.user.profile;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -45,9 +45,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         FirebaseUser user = fauth.getCurrentUser();
         if(user != null){
+            //change : add this if
+            if(user.getDisplayName().startsWith("admin:")){
+                Intent i = new Intent(MainActivity.this, AddProductActivity.class);
+                startActivity(i);
+            }
             View header = navigationView.getHeaderView(0);
-            username = header.findViewById(R.id.ttUserName);
-            email = findViewById(R.id.etemail);
+            username = header.findViewById(R.id.tvUsername);
+            email = header.findViewById(R.id.tvEmailname);
             username.setText(user.getDisplayName());
             email.setText(user.getEmail());
         }

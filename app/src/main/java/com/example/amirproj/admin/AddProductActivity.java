@@ -58,7 +58,8 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                     Integer.parseInt(horsepower.getText().toString()),
                     Double.parseDouble(etPrice.getText().toString()),
                     Integer.parseInt(secto100.getText().toString()),
-                    Integer.parseInt(maxspeed.getText().toString()));
+                    Integer.parseInt(maxspeed.getText().toString()),
+                    data);
 
             dbHelper.OpenWriteAble();
             if(p.Add(dbHelper.getDb())>-1){

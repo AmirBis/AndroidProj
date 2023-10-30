@@ -25,7 +25,7 @@ public class Product implements SqlInterface{
     //endregion
 
     //region Constructors
-    public Product(String prodtype, String color, int horsepower, double price, int secto100, int maxspeed){
+    public Product(String prodtype, String color, int horsepower, double price, int secto100, int maxspeed ,byte[] image){
         this.price=price;
         this.prodtype=prodtype;
         this.color = color;
@@ -33,6 +33,13 @@ public class Product implements SqlInterface{
         this.secto100=secto100;
         this.maxspeed=maxspeed;
         this.imageByte = image;
+    }
+
+    public Product() {
+
+    }
+
+    public Product(Product p) {
     }
     //endregion
 
