@@ -54,7 +54,7 @@ public class logInActivity extends AppCompatActivity {
 
                                 } else {
 
-                                    Log.d("error","erro");
+                                    Log.d("error","error");
 
                                 }
                             }
