@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.amirproj.admin.AddProductActivity;
+import com.example.amirproj.admin.ShowProduct;
 import com.example.amirproj.user.gallery;
 import com.example.amirproj.user.home;
 import com.example.amirproj.user.info;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(user != null){
             //change : add this if
             if(user.getDisplayName().startsWith("admin:")){
-                Intent i = new Intent(MainActivity.this, AddProductActivity.class);
+                Intent i = new Intent(MainActivity.this, ShowProduct.class);
                 startActivity(i);
             }
             View header = navigationView.getHeaderView(0);

@@ -2,9 +2,12 @@ package com.example.amirproj.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +20,14 @@ import com.example.amirproj.R;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import static com.example.amirproj.dataTables.TablesString.ProductTable.COLUMN_PRODUCT_COLOR;
+import static com.example.amirproj.dataTables.TablesString.ProductTable.COLUMN_PRODUCT_HORSEPOWER;
+import static com.example.amirproj.dataTables.TablesString.ProductTable.COLUMN_PRODUCT_IMAGE;
+import static com.example.amirproj.dataTables.TablesString.ProductTable.COLUMN_PRODUCT_MAXSPEED;
+import static com.example.amirproj.dataTables.TablesString.ProductTable.COLUMN_PRODUCT_PRICE;
+import static com.example.amirproj.dataTables.TablesString.ProductTable.COLUMN_PRODUCT_SECTO100;
+import static com.example.amirproj.dataTables.TablesString.ProductTable.COLUMN_PRODUCT_TYPE;
+
 public class AddProductActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static int RESULT_LOAD_IMAGE = 1;
@@ -25,7 +36,9 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     Button btadd,update,delete;
     Product p;
     Uri selectedImageUri;
+    int selectedId;
     DBHelper dbHelper;
+    byte[] image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,9 +78,46 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
             if(p.Add(dbHelper.getDb())>-1){
                 Toast.makeText(this, "Added Successfully", Toast.LENGTH_SHORT).show();
                 dbHelper.Close();
+                Intent i = new Intent(this,ShowProduct.class);
+                startActivity(i);
             }
-
         }
+        if(view.getId()==R.id.btUpdate){
+            p.setPid(Integer.parseInt(selectedId));
+            p.setProdtype(etname.getText().toString());
+            p.setMaxspeed(maxspeed.getText().toString());
+            p.setPrice;(Double.parseDouble(etPrice.getText().toString()));
+            p.setSaleprice(Double.parseDouble(etsaleprice.getText().toString()));
+            p.setStock(Integer.parseInt(etstock.getText().toString()));
+            p.setCategory(selectedcategory);
+            if(SelectedNewImage)
+                p.setImageByte(imageViewToByte());
+            else
+                p.setImageByte(image);
+            dbHelper.OpenWriteAble();
+            p.Update(dbHelper.getDb(),selectedId);
+            dbHelper.Close();
+            Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this,ShowProduct.class);
+            startActivity(i);
+        }
+        if(view.getId()==R.id.btDelete){
+            dbHelper.OpenWriteAble();
+            p.Delete(dbHelper.getDb(),selectedId);
+            dbHelper.Close();
+            Toast.makeText(this, "Deleted Successfully", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this,ShowProduct.class);
+            startActivity(i);
+        }
+        if(view.getId()==R.id.imageButton){
+            Intent gallery = new Intent(Intent.ACTION_PICK,
+                    MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+            startActivityForResult(gallery, RESULT_LOAD_IMAGE);
+        }
+    }
+
+
+
         if(view.getId()==R.id.imageButton){
             Intent gallery = new Intent(Intent.ACTION_PICK,
                     MediaStore.Images.Media.INTERNAL_CONTENT_URI);
@@ -85,6 +135,26 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         return baos.toByteArray();
+    }
+    private void setProduct() {
+
+        dbHelper.OpenReadAble();
+        p=new Product();
+        Cursor c = p.SelectById(dbHelper.getDb(),selectedId);
+        if(c!=null){
+            c.moveToFirst();
+            etname.setText(c.getString(c.getColumnIndexOrThrow(COLUMN_PRODUCT_TYPE)));
+            horsepower.setText(c.getString(c.getColumnIndexOrThrow(COLUMN_PRODUCT_HORSEPOWER)));
+            secto100.setText(c.getString(c.getColumnIndexOrThrow(COLUMN_PRODUCT_SECTO100)));
+            maxspeed.setText(c.getString(c.getColumnIndexOrThrow(COLUMN_PRODUCT_MAXSPEED)));
+            etColor.setText(c.getString(c.getColumnIndexOrThrow(COLUMN_PRODUCT_COLOR)));
+            etPrice.setText(c.getString(c.getColumnIndexOrThrow(COLUMN_PRODUCT_PRICE)));
+            image = c.getBlob(c.getColumnIndexOrThrow(COLUMN_PRODUCT_IMAGE));
+            Bitmap bm = BitmapFactory.decodeByteArray(image, 0 ,image.length);
+            imageButton.setImageBitmap(bm);
+        }
+        dbHelper.Close();
+
     }
 
     @Override

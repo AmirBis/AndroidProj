@@ -185,12 +185,10 @@ public class Product implements SqlInterface{
     }
 
 
-    public double getSaleprice() {
-        return price;
-    }
 
-    public void setSaleprice(double saleprice) {
-        this.price = saleprice;
+    @Override
+    public String toString() {
+        return  prodtype ;
     }
     //endregion
 
