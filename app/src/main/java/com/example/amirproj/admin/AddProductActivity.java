@@ -33,29 +33,30 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     private static int RESULT_LOAD_IMAGE = 1;
     EditText etname,etColor,horsepower,etPrice, secto100, maxspeed;
     ImageButton imageButton;
-    Button btadd,update,delete;
+    Button addButton,btUpdate,btDelete;
+    boolean SelectedNewImage;
     Product p;
     Uri selectedImageUri;
-    int selectedId;
+    String selectedId;
     DBHelper dbHelper;
     byte[] image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
-        etname = findViewById(R.id.etProdType);
+        etname = findViewById(R.id.etProdName);
         etColor = findViewById(R.id.etColor);
         maxspeed = findViewById(R.id.maxspeed);
         horsepower = findViewById(R.id.horsepower);
         secto100 = findViewById(R.id.secto100);
         etPrice = findViewById(R.id.etPrice);
         imageButton = findViewById(R.id.imageButton);
-        btadd = findViewById(R.id.btAdd);
-        btadd.setOnClickListener(this);
-        update= findViewById(R.id.btUpdate);
-        update.setOnClickListener(this);
-        delete = findViewById(R.id.btDelete);
-        delete.setOnClickListener(this);
+        addButton = findViewById(R.id.addButton);
+        addButton.setOnClickListener(this);
+        btUpdate= findViewById(R.id.btUpdate);
+        btUpdate.setOnClickListener(this);
+        btDelete = findViewById(R.id.btDelete);
+        btDelete.setOnClickListener(this);
         imageButton.setOnClickListener(this);
         dbHelper = new DBHelper(this);
         dbHelper.OpenWriteAble();
@@ -63,7 +64,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     }
     @Override
     public void onClick(View view) {
-        if(view.getId()==R.id.btAdd){
+        if(view.getId()==R.id.addButton){
             dbHelper = new DBHelper(this);
 
             byte[] data  = imageViewToByte();
@@ -83,19 +84,18 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
             }
         }
         if(view.getId()==R.id.btUpdate){
-            p.setPid(Integer.parseInt(selectedId));
+            p.setPid(Integer.parseInt(String.valueOf(selectedId)));
             p.setProdtype(etname.getText().toString());
-            p.setMaxspeed(maxspeed.getText().toString());
-            p.setPrice;(Double.parseDouble(etPrice.getText().toString()));
-            p.setSaleprice(Double.parseDouble(etsaleprice.getText().toString()));
-            p.setStock(Integer.parseInt(etstock.getText().toString()));
-            p.setCategory(selectedcategory);
+            p.setMaxspeed(Integer.parseInt(maxspeed.getText().toString()));
+            p.setColor(etColor.getText().toString());
+            p.setHorsepower(Integer.parseInt(horsepower.getText().toString()));
+            p.setPrice(Double.parseDouble(etPrice.getText().toString()));
             if(SelectedNewImage)
                 p.setImageByte(imageViewToByte());
             else
                 p.setImageByte(image);
             dbHelper.OpenWriteAble();
-            p.Update(dbHelper.getDb(),selectedId);
+            p.Update(dbHelper.getDb(),Integer.parseInt(selectedId));
             dbHelper.Close();
             Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(this,ShowProduct.class);
@@ -103,7 +103,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         }
         if(view.getId()==R.id.btDelete){
             dbHelper.OpenWriteAble();
-            p.Delete(dbHelper.getDb(),selectedId);
+            p.Delete(dbHelper.getDb(),Integer.parseInt(selectedId));
             dbHelper.Close();
             Toast.makeText(this, "Deleted Successfully", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(this,ShowProduct.class);
@@ -117,13 +117,6 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     }
 
 
-
-        if(view.getId()==R.id.imageButton){
-            Intent gallery = new Intent(Intent.ACTION_PICK,
-                    MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-            startActivityForResult(gallery, RESULT_LOAD_IMAGE);
-        }
-    }
     public byte[] imageViewToByte() {
         Bitmap bitmap = null;
         try {
@@ -135,6 +128,18 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         return baos.toByteArray();
+    }
+    private void SetIntentString() {
+        Intent i = getIntent();
+        if(i.getStringExtra("Selected_Id")==null){
+            btDelete.setVisibility(View.GONE);
+            btUpdate.setVisibility(View.GONE);
+        }
+        else {
+            addButton.setVisibility(View.GONE);
+            selectedId = i.getStringExtra("Selected_Id");
+            setProduct();
+        }
     }
     private void setProduct() {
 
@@ -157,6 +162,8 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -164,6 +171,8 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         if (resultCode == RESULT_OK && requestCode == 1){
             selectedImageUri = data.getData();
             imageButton.setImageURI(selectedImageUri);
+            SelectedNewImage = true;
         }
     }
+
 }

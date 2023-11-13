@@ -121,7 +121,32 @@ public class Product implements SqlInterface{
                 sortOrder);
         return c;
     }
+    public Cursor SelectById(SQLiteDatabase db,String id) {
+        String[] projection = {
+                BaseColumns._ID,
+                TABLE_PRODUCTNAME,
+                COLUMN_PRODUCT_TYPE,
+                COLUMN_PRODUCT_IMAGE,
+                COLUMN_PRODUCT_HORSEPOWER,
+                COLUMN_PRODUCT_SECTO100,
+                COLUMN_PRODUCT_MAXSPEED,
+                COLUMN_PRODUCT_COLOR,
+                COLUMN_PRODUCT_PRICE
 
+        };
+        String selection = BaseColumns._ID + " = ?";
+        String[] selectionArgs = {id};
+
+        Cursor c = db.query(
+                TABLE_PRODUCTNAME,   // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,                   // don't group the rows
+                null,                   // don't filter by row groups
+                null  );
+        return c;
+    }
     public int getPid() {
         return pid;
     }

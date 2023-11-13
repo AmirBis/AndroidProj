@@ -23,6 +23,7 @@ public class ShowProduct extends AppCompatActivity implements AdapterView.OnItem
     ListView productListview;
     Button addnew;
     String [] product_string ;
+
     DBHelper db;
     Product p;
     Product[] product_info;
