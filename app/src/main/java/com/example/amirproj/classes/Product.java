@@ -41,6 +41,9 @@ public class Product implements SqlInterface{
 
     public Product(Product p) {
     }
+
+    public Product(int anInt, String string, String string1, int anInt1, double aDouble, double aDouble1, byte[] blob, String string2) {
+    }
     //endregion
 
     //region Add,Delete,Update,Select Sql

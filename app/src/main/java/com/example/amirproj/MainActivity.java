@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.example.amirproj.admin.AddProductActivity;
 import com.example.amirproj.admin.ShowProduct;
 import com.example.amirproj.user.gallery;
-import com.example.amirproj.user.home;
+import com.example.amirproj.user.HomeFragment;
 import com.example.amirproj.user.info;
 import com.example.amirproj.user.profile;
 import com.google.android.material.navigation.NavigationView;
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new home()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
             navigationView.setCheckedItem(R.id.home);
         }
     }
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if(R.id.home==item.getItemId()){
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new home()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 
         }
         else if(R.id.shoppingcart==item.getItemId()){

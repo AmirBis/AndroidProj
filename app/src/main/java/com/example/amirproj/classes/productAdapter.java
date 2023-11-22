@@ -1,4 +1,4 @@
-package com.example.haifaproject2.Classes;
+package com.example.amirproj.classes;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,16 +18,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.amirproj.R;
 
 import com.example.amirproj.classes.Product;
+import com.example.amirproj.user.productInfo;
 
 
 import java.util.List;
 
-public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHolder> {
+public class productAdapter extends RecyclerView.Adapter<productAdapter.ViewHolder> {
 
     List<Product> productList;
     Context context;
 
-    public ProductsAdapter(Context context, List<Product> productList) {
+    public productAdapter(Context context, List<Product> productList) {
         this.context = context;
         this.productList = productList;
     }
@@ -68,7 +69,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         // here we will find the views on which we will inflate our data
 
         TextView tvNameOfProduct, tvPriceOfProduct;
-        ImageView imageOfProduct;
+        ImageView imageOfProduct,addtocart;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -76,16 +77,23 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             tvNameOfProduct = itemView.findViewById(R.id.eachCarImage);
             tvPriceOfProduct = itemView.findViewById(R.id.eachCarPriceTv);
             imageOfProduct = itemView.findViewById(R.id.eachCarImage);
+            addtocart = itemView.findViewById(R.id.eachCarAddToCartBtn);
+            addtocart.setOnClickListener(this);
             itemView.setOnClickListener(this);
 
         }
 
         @Override
         public void onClick(View v) {
+            if(v.getId() == R.id.eachCarAddToCartBtn){
 
-            Intent intent = new Intent(v.getContext(),ProductInfo.class);
+            }
+            else{
+
+
+            Intent intent = new Intent(v.getContext(), productInfo.class);
             intent.putExtra("id",productList.get(getLayoutPosition()).getPid()+"");
-            v.getContext().startActivity(intent);
+            v.getContext().startActivity(intent);}
         }
     }
 }
