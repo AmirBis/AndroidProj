@@ -40,10 +40,27 @@ public class Product implements SqlInterface{
     }
 
     public Product(Product p) {
+        prodtype = p.getProdtype();
+        price = p.getPrice();
+        pid = p.getPid();
+        color = p.getColor();
+        horsepower = p.getHorsepower();
+        secto100 = p.getSecto100();
+        maxspeed = p.getMaxspeed();
+        imageByte = p.getImageByte();
     }
 
-    public Product(int anInt, String string, String string1, int anInt1, double aDouble, double aDouble1, byte[] blob, String string2) {
+    public Product(int pid,String prodtype, String color, int horsepower, double price, int secto100, int maxspeed ,byte[] image){
+        this.pid=pid;
+        this.price=price;
+        this.prodtype=prodtype;
+        this.color = color;
+        this.horsepower=horsepower;
+        this.secto100=secto100;
+        this.maxspeed=maxspeed;
+        this.imageByte = image;
     }
+
     //endregion
 
     //region Add,Delete,Update,Select Sql
@@ -103,7 +120,6 @@ public class Product implements SqlInterface{
     public Cursor Select(SQLiteDatabase db) {
         String[] projection = {
                 BaseColumns._ID,
-                TABLE_PRODUCTNAME,
                 COLUMN_PRODUCT_TYPE,
                 COLUMN_PRODUCT_IMAGE,
                 COLUMN_PRODUCT_HORSEPOWER,
@@ -127,7 +143,6 @@ public class Product implements SqlInterface{
     public Cursor SelectById(SQLiteDatabase db,String id) {
         String[] projection = {
                 BaseColumns._ID,
-                TABLE_PRODUCTNAME,
                 COLUMN_PRODUCT_TYPE,
                 COLUMN_PRODUCT_IMAGE,
                 COLUMN_PRODUCT_HORSEPOWER,

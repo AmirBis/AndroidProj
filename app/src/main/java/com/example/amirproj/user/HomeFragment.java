@@ -37,18 +37,18 @@ public class HomeFragment extends Fragment {
         productList = new ArrayList<>();
         dbHelper = new DBHelper(inflater.getContext());
         dbHelper = dbHelper.OpenReadAble();
-        Product p = new Product(),p2=new Product();
+        Product p = new Product(),p2;
         Cursor c = p.Select(dbHelper.getDb());
         c.moveToFirst();
         while(!c.isAfterLast()){
             p2 = new Product(c.getInt(c.getColumnIndexOrThrow(_ID)),
                     c.getString(c.getColumnIndexOrThrow(COLUMN_PRODUCT_TYPE)),
-                    c.getString(c.getColumnIndexOrThrow(COLUMN_PRODUCT_HORSEPOWER)),
-                    c.getInt(c.getColumnIndexOrThrow(COLUMN_PRODUCT_SECTO100)),
-                    c.getDouble(c.getColumnIndexOrThrow(COLUMN_PRODUCT_MAXSPEED)),
+                    c.getString(c.getColumnIndexOrThrow(COLUMN_PRODUCT_COLOR)),
+                    c.getInt(c.getColumnIndexOrThrow(COLUMN_PRODUCT_HORSEPOWER)),
                     c.getDouble(c.getColumnIndexOrThrow(COLUMN_PRODUCT_PRICE)),
-                    c.getBlob(c.getColumnIndexOrThrow(COLUMN_PRODUCT_IMAGE)),
-                    c.getString(c.getColumnIndexOrThrow(COLUMN_PRODUCT_COLOR)));
+                    c.getInt(c.getColumnIndexOrThrow(COLUMN_PRODUCT_SECTO100)),
+                    c.getInt(c.getColumnIndexOrThrow(COLUMN_PRODUCT_MAXSPEED)),
+                    c.getBlob(c.getColumnIndexOrThrow(COLUMN_PRODUCT_IMAGE)));
             productList.add(p2);
             c.moveToNext();
         }
