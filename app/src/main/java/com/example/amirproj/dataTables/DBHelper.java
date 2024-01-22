@@ -19,7 +19,7 @@ import android.os.Bundle;
 import android.provider.BaseColumns;
 
 public  class DBHelper {
-    private static final String DATABASE_NAME = "MyProject.db";
+    private static final String DATABASE_NAME = "AmirData.db";
     private static final int DATABASE_VERSION = 1;
 
 

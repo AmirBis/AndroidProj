@@ -61,6 +61,17 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         dbHelper = new DBHelper(this);
         dbHelper.OpenWriteAble();
 
+        Intent i =getIntent();
+        if(i.getStringExtra("Selected_Id")==null){
+            btDelete.setVisibility(View.GONE);
+            btUpdate.setVisibility(View.GONE);
+        }
+        else{
+            addButton.setVisibility(View.GONE);
+            selectedId = i.getStringExtra("Selected_Id");
+            setProduct();
+        }
+
     }
     @Override
     public void onClick(View view) {

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.amirproj.admin.AddProductActivity;
 import com.example.amirproj.admin.ShowProduct;
+import com.example.amirproj.dataTables.DBHelper;
 import com.example.amirproj.user.gallery;
 import com.example.amirproj.user.HomeFragment;
 import com.example.amirproj.user.info;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Toolbar toolbar = findViewById(R.id.toolbar); //Ignore red line errors
         setSupportActionBar(toolbar);
+
 
         fauth = FirebaseAuth.getInstance();
         drawerLayout = findViewById(R.id.drawer_layout);
