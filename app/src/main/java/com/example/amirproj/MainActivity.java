@@ -1,6 +1,8 @@
 package com.example.amirproj;
 
 
+import static com.example.amirproj.dataTables.QueryString.SQL_CREATE_CART;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import com.example.amirproj.admin.AddProductActivity;
 import com.example.amirproj.admin.ShowProduct;
 import com.example.amirproj.dataTables.DBHelper;
+import com.example.amirproj.user.CartFragment;
 import com.example.amirproj.user.gallery;
 import com.example.amirproj.user.HomeFragment;
 import com.example.amirproj.user.info;
@@ -38,6 +41,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*DBHelper dbHelper = new DBHelper(this);
+        dbHelper.OpenWriteAble();
+        dbHelper.getDb().execSQL(SQL_CREATE_CART);
+        dbHelper.Close();*/
         Toolbar toolbar = findViewById(R.id.toolbar); //Ignore red line errors
         setSupportActionBar(toolbar);
 
@@ -81,12 +88,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
         else if(R.id.shoppingcart==item.getItemId()){
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new gallery()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment()).commit();
         }
         else if(R.id.info==item.getItemId()){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new info()).commit();
         }
-        else if(R.id.login==item.getItemId()){
+        else if(R.id.aboutUs==item.getItemId()){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new profile()).commit();
         }
         else if(R.id.logout==item.getItemId()){

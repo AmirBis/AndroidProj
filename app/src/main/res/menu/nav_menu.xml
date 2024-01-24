@@ -15,16 +15,16 @@
         <item
             android:id="@+id/info"
             android:icon="@drawable/info"
-            android:title="Settings"/>
+            android:title="Info"/>
 
         <item
             android:id="@+id/shoppingcart"
             android:icon="@drawable/shoppingcart"
-            android:title="Share"/>
+            android:title="Cart"/>
 
         <item
-            android:id="@+id/login"
-            android:icon="@drawable/login"
+            android:id="@+id/aboutUs"
+            android:icon="@drawable/addcircle"
             android:title="About Us"/>
     </group>
     <item

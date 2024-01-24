@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.amirproj.R;
 
 import com.example.amirproj.classes.Product;
-import com.example.amirproj.user.productInfo;
+import com.example.amirproj.user.ProductInfo;
 
 
 import java.util.List;
@@ -91,7 +91,7 @@ public class productAdapter extends RecyclerView.Adapter<productAdapter.ViewHold
             else{
 
 
-            Intent intent = new Intent(v.getContext(), productInfo.class);
+            Intent intent = new Intent(v.getContext(), ProductInfo.class);
             intent.putExtra("id",productList.get(getLayoutPosition()).getPid()+"");
             v.getContext().startActivity(intent);}
         }

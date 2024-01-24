@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     android:id="@+id/coordinatorLayout"
-    tools:context=".user.home">
+    tools:context=".user.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
