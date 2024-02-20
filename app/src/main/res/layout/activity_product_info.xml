@@ -59,16 +59,17 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/secondCardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="119dp"
         android:layout_below="@+id/firstCardView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="61dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp">
 
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="238dp"
             android:layout_marginTop="10dp">
 
             <ImageButton
@@ -97,30 +98,16 @@
                 android:layout_toRightOf="@+id/quantity"
                 android:background="@drawable/remove" />
 
-            <CheckBox
-                android:id="@+id/upgrade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/subquantity"
-                android:text="upgrade 20000 ₪" />
-
-            <CheckBox
-                android:id="@+id/openingRoof"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/upgrade"
-                android:text="opening roof 7500 ₪" />
 
             <TextView
                 android:id="@+id/descriptioninfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/openingRoof"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="Product a"
+                android:text="select amount"
                 android:textSize="15sp"
                 android:textStyle="italic" />
 
@@ -130,6 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/descriptioninfo"
                 android:layout_marginLeft="30dp"
+                android:layout_marginTop="19dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="10dp"
                 android:background="#3F51B5"

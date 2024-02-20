@@ -29,8 +29,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class ProductInfo extends AppCompatActivity  {
     ImageView imageView;
     ImageButton plusquantity, minusquantity;
-    TextView quantitynumber, productname, productprice, color;
-    CheckBox upgrade, openingRoof;
+    TextView quantitynumber, productname, productprice;
     Button addtoCart;
     int quantity;
     double basePrice = 0;
@@ -46,9 +45,7 @@ public class ProductInfo extends AppCompatActivity  {
         quantitynumber = findViewById(R.id.quantity);
         productname = findViewById(R.id.ProductNameInfo);
         productprice =findViewById(R.id.ProductPrice);
-        upgrade = findViewById(R.id.upgrade);
         addtoCart = findViewById(R.id.addtocart);
-        openingRoof = findViewById(R.id.openingRoof);
         dbHelper = new DBHelper(this);
         selectedid = getIntent().getExtras().getString("id");
         setProduct();
@@ -106,7 +103,6 @@ public class ProductInfo extends AppCompatActivity  {
         if(c!=null){
             c.moveToFirst();
             productname.setText(c.getString(c.getColumnIndexOrThrow(COLUMN_PRODUCT_TYPE)));
-            color.setText(c.getString(c.getColumnIndexOrThrow(COLUMN_PRODUCT_COLOR)));
             basePrice=c.getDouble(c.getColumnIndexOrThrow(COLUMN_PRODUCT_PRICE));
             byte[] image = c.getBlob(c.getColumnIndexOrThrow(COLUMN_PRODUCT_IMAGE));
             Bitmap bm = BitmapFactory.decodeByteArray(image, 0 ,image.length);

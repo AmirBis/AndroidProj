@@ -2,6 +2,7 @@ package com.example.amirproj;
 
 
 import static com.example.amirproj.dataTables.QueryString.SQL_CREATE_CART;
+import static com.example.amirproj.dataTables.QueryString.SQL_CREATE_PRODUCT;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /*DBHelper dbHelper = new DBHelper(this);
         dbHelper.OpenWriteAble();
-        dbHelper.getDb().execSQL(SQL_CREATE_CART);
+        dbHelper.getDb().execSQL(SQL_CREATE_PRODUCT);
         dbHelper.Close();*/
         Toolbar toolbar = findViewById(R.id.toolbar); //Ignore red line errors
         setSupportActionBar(toolbar);

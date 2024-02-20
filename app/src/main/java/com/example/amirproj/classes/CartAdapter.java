@@ -35,18 +35,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     String uid;
     View view,v;
     Context context;
-    int i = 1;
-    int max ;
+    int i=1 ;
     double sum ;
     ViewHolder h;
-    List<Double> listprice;
 
     public CartAdapter(View v,Context context, List<Cart> cartList) {
         this.context = context;
         this.cartList = cartList;
         this.v = v;
         sum=0;
-        listprice = new ArrayList<>();
     }
 
     @Override
@@ -67,23 +64,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         Product p = new Product();
         DBHelper dbHelper = new DBHelper(view.getContext());
         dbHelper.OpenReadAble();
-        Cursor c = p.SelectById(dbHelper.getDb(), p.prodtype);
+        Cursor c = p.SelectById(dbHelper.getDb(), pid+"");
         c.moveToFirst();
         if(c!=null){
-            max = c.getInt(c.getColumnIndexOrThrow(COLUMN_PRODUCT_COLOR));
             String typeOfProduct = c.getString(c.getColumnIndexOrThrow(COLUMN_PRODUCT_TYPE));
             int hop = c.getInt(c.getColumnIndexOrThrow(COLUMN_PRODUCT_HORSEPOWER));
-            double price =c.getDouble(c.getColumnIndexOrThrow(COLUMN_PRODUCT_PRICE));
-            listprice.add(price);
+            double price = c.getDouble(c.getColumnIndexOrThrow(COLUMN_PRODUCT_PRICE));
             byte[] images = c.getBlob(c.getColumnIndexOrThrow(COLUMN_PRODUCT_IMAGE));
             Bitmap bm = BitmapFactory.decodeByteArray(images, 0 ,images.length);
             sum+=price*amount;
-            holder.totalprice.setText(sum + "$");
+
+            holder.totalprice.setText(sum + "");
             holder.tvTypeOfProduct.setText(typeOfProduct);
-            holder.tvCarPrice.setText(price+"");
             holder.tvcar.setText(hop+"");
             holder.imageOfProduct.setImageBitmap(bm);
             holder.tvAmount.setText(amount+"");
+            holder.carPrice.setText(String.valueOf(price));
         }
         dbHelper.Close();
     }
@@ -98,13 +94,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         // here we will find the views on which we will inflate our data
 
-        TextView tvTypeOfProduct, tvCarPrice, tvcar,tvAmount,totalprice;
+        TextView tvTypeOfProduct, tvcar,tvAmount,totalprice,carPrice;
         ImageView imageOfProduct,deleteitem;
         ImageButton plusquantity,minusquantity;
 
         public ViewHolder(View itemView) {
             super(itemView);
-
+            carPrice = itemView.findViewById(R.id.carprice);
             tvTypeOfProduct = itemView.findViewById(R.id.eachCartItemName);
             tvcar = itemView.findViewById(R.id.eachCartItemYOPTv);
             imageOfProduct = itemView.findViewById(R.id.eachCartItemIV);
@@ -116,7 +112,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 public void onClick(View v) {
                     DBHelper dbHelper = new DBHelper(context);
                     dbHelper.OpenWriteAble();
-                    sum = 0;
+                    totalprice.setText("0");
                     cartList.get(getPosition()).Delete(dbHelper.getDb(),cartList.get(getPosition()).getCartid());
                     cartList.remove(getPosition());
                     notifyDataSetChanged();
@@ -128,10 +124,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             minusquantity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(i>1){
-                        tvAmount.setText(String.valueOf(--i));
-                        sum-=Double.parseDouble(tvCarPrice.getText().toString());
-                        totalprice.setText(sum + "$");
+                    int x =Integer.parseInt(tvAmount.getText().toString());
+                    if(x>1){
+                        tvAmount.setText(String.valueOf(x-1));
+                        sum-=Double.parseDouble(carPrice.getText().toString());
+                        totalprice.setText(sum + "");
                     }
                 }
             });
@@ -139,11 +136,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             plusquantity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(i<max){
-                        tvAmount.setText(String.valueOf(++i));
-                        sum+=Double.parseDouble(tvCarPrice.getText().toString());
-                        totalprice.setText(sum + "$");
-                    }
+                         int x =Integer.parseInt(tvAmount.getText().toString());
+                        tvAmount.setText(String.valueOf(x+1));
+                        sum+=Double.parseDouble(carPrice.getText().toString());
+                        totalprice.setText(sum+"");
+
                 }
             });
 

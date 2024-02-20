@@ -13,7 +13,7 @@
         android:theme="@style/Theme.AmirProj"
         tools:targetApi="31">
         <activity
-            android:name=".user.productInfo"
+            android:name=".user.ProductInfo"
             android:exported="false" />
         <activity
             android:name=".admin.ListView"
@@ -21,9 +21,7 @@
         <activity
             android:name=".admin.ShowProduct"
             android:exported="false" />
-        <activity
-            android:name=".admin.listView"
-            android:exported="false" />
+       
         <activity
             android:name=".admin.AddProductActivity"
             android:exported="false" />

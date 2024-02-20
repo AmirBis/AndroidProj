@@ -58,6 +58,7 @@ public class CartFragment extends Fragment {
             cartList.add(p2);
             c.moveToNext();
         }
+
         dbHelper.Close();
         // adapter
         mAdapter = new CartAdapter(v,getContext(), cartList);
