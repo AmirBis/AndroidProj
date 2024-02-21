@@ -24,8 +24,8 @@
 
         <item
             android:id="@+id/aboutUs"
-            android:icon="@drawable/addcircle"
-            android:title="About Us"/>
+            android:icon="@drawable/correct"
+            android:title="Reviews"/>
     </group>
     <item
         android:title="">
